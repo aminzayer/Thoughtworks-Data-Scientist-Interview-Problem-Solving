@@ -3,9 +3,9 @@ from typing import List
 from urllib.request import urlretrieve
 
 import pandas as pd
-from sklearn.preprocessing import StandardScaler
 from sklearn.impute import KNNImputer
 from sklearn.preprocessing import StandardScaler
+
 
 class DataLoader:
     """Class to load the political parties dataset"""
@@ -32,7 +32,9 @@ class DataLoader:
         return df.drop_duplicates()
         # ➤ Reason: Ensures no repeated observations distort statistics or model learning.
 
-    def remove_nonfeature_cols(self, df: pd.DataFrame, non_features: List[str], index: List[str]) -> pd.DataFrame:
+    def remove_nonfeature_cols(
+        self, df: pd.DataFrame, non_features: List[str], index: List[str]
+    ) -> pd.DataFrame:
         """
         Remove specified non-feature columns and set given columns as DataFrame index.
         """
@@ -52,29 +54,33 @@ class DataLoader:
     def handle_NaN_values(self, df: pd.DataFrame) -> pd.DataFrame:
         """
         Clean missing values in the DataFrame using a specified strategy.
-        
+
         Steps:
         1. Drop columns with excessive missing values.
         2. Fill remaining missing values using the selected imputation strategy.
-        
-        The strategy used can be: mean, median, mode, forward fill, backward fill, constant, or KNN imputation.
+
+        The strategy used can be: mean, median, mode, forward fill, backward fill, constant, or KNN
+        imputation.
         """
 
         # Define the imputation strategy to use (can be changed as needed)
         strategy = "KNN"
 
         # Step 1: Drop columns with more than 50% missing values
-        # Reason: Columns with too many missing values are often not informative and may introduce noise
+        # Reason: Columns with too many missing values are often not informative and may introduce
+        # noise
         threshold = int(len(df) / 2)  # Allow up to 50% missing data
-        df_copy = df.copy()           # Work on a copy to avoid modifying the original data
+        df_copy = df.copy()  # Work on a copy to avoid modifying the original data
         df_copy = df_copy.dropna(axis=1, thresh=threshold)
 
         # Step 2: Apply the chosen imputation strategy to remaining missing values
-        # Reason: Each method handles missingness differently, suitable for different data types or distributions
+        # Reason: Each method handles missingness differently, suitable for different data types or
+        # distributions
 
         if strategy == "mean":
             # Fill missing numeric values with the column-wise mean
-            # Reason: Assumes missing values are missing at random and that the mean represents central tendency
+            # Reason: Assumes missing values are missing at random and that the mean represents
+            # central tendency
             df_copy = df_copy.apply(lambda x: x.fillna(x.mean()) if x.dtype.kind in "ifc" else x)
 
         elif strategy == "median":
@@ -106,11 +112,14 @@ class DataLoader:
             # Use K-Nearest Neighbors imputation based on feature similarity
             # Reason: More sophisticated approach; captures complex patterns in the data
             imputer = KNNImputer(n_neighbors=3, weights="distance")
-            df_copy = pd.DataFrame(imputer.fit_transform(df_copy), columns=df_copy.columns, index=df_copy.index)
+            df_copy = pd.DataFrame(
+                imputer.fit_transform(df_copy), columns=df_copy.columns, index=df_copy.index
+            )
 
         # Return the cleaned DataFrame
         return df_copy
-        # ➤ Reason: Preserves useful columns while handling missing data in a statistically sound way.
+        # ➤ Reason: Preserves useful columns while handling missing data in a statistically sound
+        # way.
 
     def scale_features(self, df: pd.DataFrame) -> pd.DataFrame:
         """
@@ -119,7 +128,9 @@ class DataLoader:
         df_copy = df.copy()
 
         # Identify numerical columns
-        numeric_cols = df_copy.select_dtypes(include=['int32', 'int64', 'float32', 'float64']).columns
+        numeric_cols = df_copy.select_dtypes(
+            include=["int32", "int64", "float32", "float64"]
+        ).columns
 
         scaler = StandardScaler()
         df_copy[numeric_cols] = scaler.fit_transform(df_copy[numeric_cols])

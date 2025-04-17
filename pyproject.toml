@@ -14,7 +14,7 @@ scikit-learn = "*"
 notebook = "^7.4.0"
 jupyterlab = "^4.4.0"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 pytest = "*"
 black = "*"
 flake8 = "*"

@@ -1,5 +1,5 @@
 import pandas as pd
-import numpy as np
+
 from sklearn.mixture import GaussianMixture
 
 
@@ -56,14 +56,15 @@ class DensityEstimator:
         samples, _ = self.model.sample(n_samples=n_samples)
 
         # Wrap results in a DataFrame with synthetic component labels
-        sampled_df = pd.DataFrame(samples, columns=[f'component_{i+1}' for i in range(self.data.shape[1])])
+        sampled_df = pd.DataFrame(
+            samples, columns=[f"component_{i + 1}" for i in range(self.data.shape[1])]
+        )
 
         return sampled_df
         # ➤ Reason: Allows simulation, data augmentation, or visualization of learned density
 
     def inverse_transform(self, low_dim_data):
         """Map low-dimensional latent points back to high-dimensional input space."""
-        
         # Check that the dimensionality reduction model (e.g., PCA) is available
         if self.dim_reducer_model is None:
             raise ValueError("Dimensionality reducer model not set.")
@@ -76,4 +77,5 @@ class DensityEstimator:
         result = pd.DataFrame(high_dim_data, columns=self.feature_names)
 
         return result
-        # ➤ Reason: Enables interpretation of clusters or samples in the context of original features
+        # ➤ Reason: Enables interpretation of clusters or samples in the context of original
+        # features

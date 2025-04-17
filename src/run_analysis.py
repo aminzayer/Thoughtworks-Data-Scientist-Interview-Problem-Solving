@@ -1,10 +1,12 @@
 from pathlib import Path
-
 from matplotlib import pyplot
-import numpy as np
 
 from political_party_analysis.loader import DataLoader
-from political_party_analysis.visualization import scatter_plot, plot_density_estimation_results, plot_finnish_parties
+from political_party_analysis.visualization import (
+    scatter_plot,
+    plot_density_estimation_results,
+    plot_finnish_parties,
+)
 from political_party_analysis.dim_reducer import DimensionalityReducer
 from political_party_analysis.estimator import DensityEstimator
 
@@ -12,7 +14,8 @@ if __name__ == "__main__":
 
     # === 1. Data Preprocessing ===
     # Load and clean the input dataset using a custom DataLoader class.
-    # This step ensures missing values, invalid entries, and unwanted noise are handled before analysis.
+    # This step ensures missing values, invalid entries, and unwanted noise are handled before \
+    # analysis.
     data_loader = DataLoader()
     processed_data = data_loader.preprocess_data()
     print(f"Processed data shape: {processed_data.shape}")
@@ -40,19 +43,25 @@ if __name__ == "__main__":
     # ➤ Reason: Helps verify how well PCA captured the variance in a 2D space.
 
     # === 4. Density Estimation (e.g. Gaussian Mixture Model) ===
-    # Fit a density model to the reduced-dimensional space to identify clusters or latent structures.
+    # Fit a density model to the reduced-dimensional space to identify clusters or latent \
+    # structures.
     # Also passes the original feature names to enable back-transformation later.
     feature_names = processed_data.columns
     print(feature_names)
-    density_estimator = DensityEstimator(data=reduced_dim_data, dim_reducer=dim_reducer, high_dim_feature_names=feature_names)
+    density_estimator = DensityEstimator(
+        data=reduced_dim_data, dim_reducer=dim_reducer, high_dim_feature_names=feature_names
+    )
 
     # Fit the GMM and extract key outputs
     labels, means, covariances = density_estimator.fit(n_components=4)
-    # ➤ Reason: Models the distribution of political parties in latent space with probabilistic clusters.
+    # ➤ Reason: Models the distribution of political parties in latent space with probabilistic
+    # clusters.
 
     # === 5. Plot Density Estimation Results ===
     # Visualize the clustering results over PCA-reduced coordinates.
-    plot_density_estimation_results(reduced_dim_data, labels, means, covariances, "Density Estimation of Political Parties")
+    plot_density_estimation_results(
+        reduced_dim_data, labels, means, covariances, "Density Estimation of Political Parties"
+    )
     pyplot.savefig(Path(__file__).parents[1].joinpath(*["plots", "density_estimation.png"]))
     # ➤ Reason: Allows visual validation of how clusters align in latent space.
 

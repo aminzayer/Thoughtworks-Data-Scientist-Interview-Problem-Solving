@@ -2,6 +2,7 @@ import pandas as pd
 import pytest
 from political_party_analysis.dim_reducer import DimensionalityReducer
 
+
 @pytest.fixture
 def mock_df() -> pd.DataFrame:
     df = pd.DataFrame(
@@ -15,9 +16,11 @@ def mock_df() -> pd.DataFrame:
     df.index.name = "id"
     return df
 
+
 def test_dimensionality_reducer(mock_df: pd.DataFrame):
+    """Test dimensionality reduction using PCA"""
     # error for it
-    #dim_reducer = DimensionalityReducer("PCA", mock_df, n_components=2)
+    # dim_reducer = DimensionalityReducer("PCA", mock_df, n_components=2)
     # change to this
     dim_reducer = DimensionalityReducer(mock_df, n_components=2)
     transformed_data = dim_reducer.transform()
