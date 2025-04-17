@@ -23,9 +23,5 @@ class DimensionalityReducer:
         transformed_data = self.model.fit_transform(numeric_data)
 
         result = pd.DataFrame(transformed_data, index=numeric_data.index, columns=[f'component_{i+1}' for i in range(self.n_components)])
-        # print(self.data[:10])
-        # print(self.data.dtypes)
-        # print(self.data.select_dtypes(include=['number']).columns)
-        # transformed_data = self.model.fit_transform(self.data)
-        # result = pd.DataFrame(transformed_data, columns=[f'component_{i+1}' for i in range(self.n_components)])
+        
         return result

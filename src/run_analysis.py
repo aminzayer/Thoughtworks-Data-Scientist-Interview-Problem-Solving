@@ -38,7 +38,7 @@ if __name__ == "__main__":
     # تخمین چگالی با استفاده از مدل‌های مخلوط گاوسی
     # حفظ نام‌های ویژگی‌های داده‌های اصلی برای استفاده در تبدیل معکوس
     feature_names = processed_data.columns
-
+    print(feature_names)
     density_estimator = DensityEstimator(data=reduced_dim_data, dim_reducer=dim_reducer, high_dim_feature_names=feature_names)
 
     # برازش مدل و دریافت برچسب‌ها، میانگین‌ها و کوواریانس‌ها
