@@ -1,4 +1,18 @@
-# Survey Analysis
+# Survey Analysis: Political Party Landscape of Europe Using CHES Dataset
+
+**Analyze Europe's political landscape** with powerful Python tools using the **Chapel Hill Expert Survey (CHES) 2019** dataset.  
+This project provides a structured framework for performing **statistical analysis**, **party positioning comparison**, and **political spectrum exploration** across **277 European political parties** with **55 key attributes**.
+
+Built with **Python 3.9+**, **Poetry** for dependency management, and a focus on **modular, testable code**, this repository helps researchers, analysts, and students quickly gain insights from political data.
+
+> **This solution was developed and implemented by Amin Zay.**
+
+---
+
+**Keywords:**  
+Europe Political Analysis, Chapel Hill Expert Survey, CHES 2019, Political Data Science, Party Positioning, Python Data Analysis, Political Spectrum, Political Survey Analytics, Data Science Project
+
+## Survey Analysis
 
 As a data scientist you are required to analyse the political landscape of Europe using the **Chapel Hill Expert Survery** dataset. The dataset provides insights into the positioning of **277 political parties** in Europe based on **55 different attributes**. The dataset can be downloaded [here](https://www.chesdata.eu/2019-chapel-hill-expert-survey) and the [codebook](https://static1.squarespace.com/static/5975c9bfdb29d6a05c65209b/t/5fa04ec05d3c8218b7c91450/1604341440585/2019_CHES_codebook.pdf) provides further information on the survey attributes.
 
